@@ -1,9 +1,8 @@
 package com.pluralsight;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -73,26 +72,36 @@ public class FinancialTracker {
      *
      * @return
      */
-    public static void loadTransactions(String fileName) throws IOException {
+    public static void loadTransactions(String fileName) {
         // TODO: create file if it does not exist, then read each line,
         //       parse the five fields, build a Transaction object,
         //       and add it to the transactions list.
 
-        // String transactionName = "transactions.csv";
-        // FileReader fileReader = new FileReader("transactions.csv");
 
-        BufferedReader reader = new BufferedReader(new FileReader("transactions.csv"));
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader(fileName));
+
+
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         String line;
-        while ((line = reader.readLine()) != null) {
+        while (true) {
+            try {
+                if (!((line = reader.readLine()) != null)) break;
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             String[] newtransaction = line.split("\\|");
 
-            String date = newtransaction[0];
-            String time = newtransaction[1];
+            LocalDate date = LocalDate.parse(newtransaction[0]);
+            LocalTime time = LocalTime.parse(newtransaction[1]);
             String description = newtransaction[2];
             String vendor = newtransaction[3];
             double amount = Double.parseDouble(newtransaction[4]);
 
-          //  Transaction allrtransaction = new Transaction(date, time, description, vendor, amount);
             transactions.add(new Transaction(date, time, description, vendor, amount));
 
         }
@@ -114,6 +123,27 @@ public class FinancialTracker {
      * Store the amount as-is (positive) and append to the file.
      */
     private static void addDeposit(Scanner scanner) {
+
+        System.out.println("Enter the date");
+        LocalDate date = LocalDate.from(LocalTime.parse(scanner.nextLine()));
+        System.out.println("Enter the time");
+        LocalTime time = LocalTime.parse(scanner.nextLine());
+        System.out.println("Enter the description ");
+        String description = scanner.nextLine();
+        System.out.println("enter the vendor name");
+        String vendor = scanner.nextLine();
+        System.out.println("Enter the deposit amount");
+        double amount = scanner.nextDouble();
+
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("newTransaction.csv"));
+
+            transactions.add(new Transaction(date, time, description, vendor, amount));
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
 
         // TODO
