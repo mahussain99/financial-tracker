@@ -1,10 +1,12 @@
 package com.pluralsight;
 
 import java.io.*;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 /*
@@ -72,45 +74,37 @@ public class FinancialTracker {
      *
      * @return
      */
-    public static void loadTransactions(String fileName) {
+    public static void loadTransactions(String FILE_NAME) {
         // TODO: create file if it does not exist, then read each line,
         //       parse the five fields, build a Transaction object,
         //       and add it to the transactions list.
 
 
         BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(new FileReader(fileName));
+        try{
+            reader = new BufferedReader(new FileReader(FILE_NAME));
 
+            String line;
+            while ((line = reader.readLine()) != null) {
 
+                String[] newtransaction = line.split("\\|");
 
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        String line;
-        while (true) {
-            try {
-                if (!((line = reader.readLine()) != null)) break;
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+                LocalDate date = LocalDate.parse(newtransaction[0]);
+                LocalTime time = LocalTime.parse(newtransaction[1]);
+                String description = newtransaction[2];
+                String vendor = newtransaction[3];
+                double amount = Double.parseDouble(newtransaction[4]);
+
+                transactions.add(new Transaction(date, time, description, vendor, amount));
+
             }
-            String[] newtransaction = line.split("\\|");
+            reader.close();
+        } catch (IOException e) {
 
-            LocalDate date = LocalDate.parse(newtransaction[0]);
-            LocalTime time = LocalTime.parse(newtransaction[1]);
-            String description = newtransaction[2];
-            String vendor = newtransaction[3];
-            double amount = Double.parseDouble(newtransaction[4]);
-
-            transactions.add(new Transaction(date, time, description, vendor, amount));
 
         }
-
-
 
     }
-
-
 
     /* ------------------------------------------------------------------
        Add new transactions
@@ -124,30 +118,58 @@ public class FinancialTracker {
      */
     private static void addDeposit(Scanner scanner) {
 
-        System.out.println("Enter the date");
-        LocalDate date = LocalDate.from(LocalTime.parse(scanner.nextLine()));
-        System.out.println("Enter the time");
-        LocalTime time = LocalTime.parse(scanner.nextLine());
-        System.out.println("Enter the description ");
-        String description = scanner.nextLine();
-        System.out.println("enter the vendor name");
-        String vendor = scanner.nextLine();
-        System.out.println("Enter the deposit amount");
-        double amount = scanner.nextDouble();
+        LocalDate date = null;
+        LocalTime time = null;
+        String description = null;
+        String vendor = null;
+        double amount = 0;
 
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("newTransaction.csv"));
+
+            System.out.println("Enter the date this formate (yyyy-MM-dd)");
+            date = LocalDate.parse(scanner.nextLine(), DATE_FMT);
+            System.out.println("Enter the time this formate (HH:mm:ss)");
+            time = LocalTime.parse(scanner.nextLine(), TIME_FMT);
+            System.out.println("Enter the description ");
+            description = scanner.nextLine();
+            System.out.println("enter the vendor name");
+            vendor = scanner.nextLine();
+
+
+
+        } catch (DateTimeException e) {
+            System.out.println("Show me error");
+        }
+
+        try {
+            System.out.println("Enter the deposit amount");
+            amount = scanner.nextDouble();
+            scanner.nextLine();
+
+            if (amount <= 0) {
+                System.out.println("amount should be positive");
+                return;
+            }
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true));
+            String line = "";
 
             transactions.add(new Transaction(date, time, description, vendor, amount));
+            writer.write(date+ "|" + time+ "|" + description+ "|" +vendor + "|"+ amount);
 
-
+            writer.newLine();
+            writer.close();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("Run time error");
+
+
+
+        }
         }
 
 
         // TODO
-    }
+
 
     /**
      * Same prompts as addDeposit.
@@ -156,6 +178,52 @@ public class FinancialTracker {
      */
     private static void addPayment(Scanner scanner) {
         // TODO
+
+        LocalDate date = null;
+        LocalTime time = null;
+        String description = null;
+        String vendor = null;
+        double amount = 0;
+
+        try {
+            System.out.println("Enter the date this formate (yyyy-MM-dd)");
+            date = LocalDate.parse(scanner.nextLine(), DATE_FMT);
+
+            System.out.println("Enter the time this formate (HH:mm:ss)");
+            time = LocalTime.parse(scanner.nextLine(), TIME_FMT);
+            System.out.println("Enter the description ");
+            description = scanner.nextLine();
+            System.out.println("enter the vendor name");
+            vendor = scanner.nextLine();
+
+        } catch (DateTimeException e) {
+            System.out.println("Show me error");
+        }
+
+        try {
+            System.out.println("Enter the payment amount");
+            amount = scanner.nextDouble();
+            scanner.nextLine();
+
+            if (amount <= 0) {
+                System.out.println("amount should be positive");
+                return;
+            }
+            amount = -amount;
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true));
+            String line = "";
+
+            transactions.add(new Transaction(date, time, description, vendor, amount));
+            writer.write(date+ "|" + time+ "|" + description+ "|" +vendor + "|"+ amount);
+
+            writer.newLine();
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Run time error");
+        }
+
+
     }
 
     /* ------------------------------------------------------------------
@@ -188,7 +256,16 @@ public class FinancialTracker {
     /* ------------------------------------------------------------------
        Display helpers: show data in neat columns
        ------------------------------------------------------------------ */
-    private static void displayLedger() { /* TODO – print all transactions in column format */ }
+    private static void displayLedger() { /* TODO – print all transactions in column format */
+        System.out.printf("all transactions\n");
+        System.out.printf("date        | time     | description        | vendor       | amount\n");
+        System.out.printf("--------------------------------------------------------------------\n");
+
+        for (Transaction transaction : transactions) {
+            System.out.println(transaction);
+
+        }
+    }
 
     private static void displayDeposits() { /* TODO – only amount > 0               */ }
 
