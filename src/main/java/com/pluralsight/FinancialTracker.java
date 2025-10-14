@@ -323,15 +323,36 @@ public class FinancialTracker {
        ------------------------------------------------------------------ */
     private static void filterTransactionsByDate(LocalDate start, LocalDate end) {
         // TODO – iterate transactions, print those within the range
+
+        for (Transaction transaction : transactions) {
+
+
+        }
     }
 
     private static void filterTransactionsByVendor(String vendor) {
         // TODO – iterate transactions, print those with matching vendor
+
+        boolean found = false;
+        for (Transaction transaction : transactions) {
+            if (transaction.getVendor().equalsIgnoreCase(vendor)){
+                System.out.println(transaction.getVendor());
+                found = true;
+                if(found){
+                    System.out.println("No transactions found for vendor: " + vendor);
+
+                }
+
+            }
+
+        }
     }
 
     private static void customSearch(Scanner scanner) {
         // TODO – prompt for any combination of date range, description,
         //        vendor, and exact amount, then display matches
+
+
     }
 
     /* ------------------------------------------------------------------
