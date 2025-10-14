@@ -310,12 +310,37 @@ public class FinancialTracker {
                     LocalDate start = LocalDate.now();
                     LocalDate end = LocalDate.now();
                     filterTransactionsByDate(start.withDayOfMonth(1), end);
+                    System.out.println("Show us current month report" + start + "to" + end);
+                }
+                case "2" -> {/* TODO – previous month report */
+                    LocalDate today = LocalDate.now();
+                    LocalDate previousMonth = today.minusMonths(1);
+                    LocalDate start = previousMonth.withDayOfMonth(1);
+                    LocalDate end = previousMonth.withDayOfMonth(previousMonth.lengthOfMonth());
+                    filterTransactionsByDate(start, end);
+
+                }
+                case "3" -> {/* TODO – year-to-date report   */
+                    LocalDate today = LocalDate.now();
+                    LocalDate thisYear = today.withDayOfYear(1);
+                    LocalDate endYear = today;
+                    filterTransactionsByDate(thisYear, endYear);
+                    System.out.println("Showing transactions from " + thisYear + " to " + endYear);
+
                 }
 
-                case "2" -> {/* TODO – previous month report */ }
-                case "3" -> {/* TODO – year-to-date report   */ }
-                case "4" -> {/* TODO – previous year report  */ }
-                case "5" -> {/* TODO – prompt for vendor then report */ }
+                case "4" -> {/* TODO – previous year report  */
+                    LocalDate today = LocalDate.now();
+                    LocalDate previousYear = today.minusYears(1);
+                    LocalDate previousStartYear = previousYear.withDayOfYear(1);
+                    LocalDate previousEndYear = previousYear.withDayOfYear(previousYear.lengthOfYear());
+                    filterTransactionsByDate(previousStartYear, previousEndYear);
+
+                }
+                case "5" -> {/* TODO – prompt for vendor then report */
+                    String vendor = scanner.nextLine().trim();
+                    filterTransactionsByVendor(vendor);
+                }
                 case "6" -> customSearch(scanner);
                 case "0" -> running = false;
                 default -> System.out.println("Invalid option");
@@ -359,24 +384,47 @@ public class FinancialTracker {
     private static void customSearch(Scanner scanner) {
         // TODO – prompt for any combination of date range, description,
         //        vendor, and exact amount, then display matches
+        try {
+            System.out.println("Enter start date (yyyy-MM-dd)");
+            String startInput = scanner.nextLine();
+            LocalDate startDate = null;
+            if (!startInput.isBlank()) {
+                startDate = LocalDate.parse(startInput, DATE_FMT);
+            } else {
+                System.out.println("Start date is required.");
 
-        System.out.println("Enter a start date of the month and date this formate (yyyy-MM-dd)");
-        LocalDate startDateInput = (LocalDate.parse(scanner.nextLine(), DATE_FMT));
 
-        LocalDate startDate = null;
-        if (!startDate.isBlank()) {
-            startDate = LocalDate.parse(startDate, DATE_FMT);
+                System.out.println("Enter end date (yyyy-MM-dd)");
+                String endInput = scanner.nextLine();
 
-            System.out.println("Enter the time this formate (HH:mm:ss)");
-            time = LocalTime.parse(scanner.nextLine(), TIME_FMT);
-            System.out.println("Enter the description ");
-            description = scanner.nextLine();
-            System.out.println("enter the vendor name");
-            vendor = scanner.nextLine();
+                LocalDate endDate = null;
+                if (!endInput.isBlank()) {
+                    endDate = LocalDate.parse(endInput, DATE_FMT);
+                } else {
+                    System.out.println("End date is required.");
 
+
+                    System.out.println("Enter description of the item");
+                    String descriptionInput = scanner.nextLine();
+                    System.out.println("enter vendor information");
+                    String vendorInput = scanner.nextLine();
+
+                    System.out.println("Enter your amount");
+                    String amountInput = scanner.nextLine();
+                    Double amount = null;
+                    if (!amountInput.isBlank()) {
+                        amount = Double.parseDouble(amountInput);
+                    }else {
+                        System.out.println("Amount was invalid");
+
+
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            System.out.println("Show me runtime error");
         }
-    }
-
+        }
     /* ------------------------------------------------------------------
        Utility parsers (you can reuse in many places)
        ------------------------------------------------------------------ */

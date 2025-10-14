@@ -52,13 +52,13 @@ Outline potential future enhancements or functionalities you might consider addi
 
 List resources such as tutorials, articles, or documentation that helped you during the project.
 
-- [Java Programming Tutorial](https://www.example.com)
+- [Java Programming Tutorial]https://chatgpt.com/potato-sensei)
 - [Effective Java](https://www.example.com)
 
 ## Team Members
 
-- **Name 1** - Specific contributions or roles.
-- **Name 2** - Specific contributions or roles.
+- **Name 1** - Nauman Saqib
+- **Name 2** - Arsenii Kunilovskii
 
 ## Thanks
 
