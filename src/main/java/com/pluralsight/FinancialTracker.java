@@ -306,7 +306,12 @@ public class FinancialTracker {
             String input = scanner.nextLine().trim();
 
             switch (input) {
-                case "1" -> {/* TODO – month-to-date report */ }
+                case "1" -> {
+                    LocalDate start = LocalDate.now();
+                    LocalDate end = LocalDate.now();
+                    filterTransactionsByDate(start.withDayOfMonth(1), end);
+                }
+
                 case "2" -> {/* TODO – previous month report */ }
                 case "3" -> {/* TODO – year-to-date report   */ }
                 case "4" -> {/* TODO – previous year report  */ }
@@ -325,20 +330,23 @@ public class FinancialTracker {
         // TODO – iterate transactions, print those within the range
 
         for (Transaction transaction : transactions) {
+            if (transaction.getDate().isBefore(end) && transaction.getDate().isAfter(start)) {
+                System.out.println(transaction);
 
+            }
 
         }
-    }
 
+    }
     private static void filterTransactionsByVendor(String vendor) {
         // TODO – iterate transactions, print those with matching vendor
 
         boolean found = false;
-        for (Transaction transaction : transactions) {
-            if (transaction.getVendor().equalsIgnoreCase(vendor)){
-                System.out.println(transaction.getVendor());
+        for (Transaction allVendor : transactions) {
+            if (allVendor.getVendor().equalsIgnoreCase(vendor)) {
+                System.out.println(allVendor.getVendor());
                 found = true;
-                if(found){
+                if (found) {
                     System.out.println("No transactions found for vendor: " + vendor);
 
                 }
@@ -352,7 +360,21 @@ public class FinancialTracker {
         // TODO – prompt for any combination of date range, description,
         //        vendor, and exact amount, then display matches
 
+        System.out.println("Enter a start date of the month and date this formate (yyyy-MM-dd)");
+        LocalDate startDateInput = (LocalDate.parse(scanner.nextLine(), DATE_FMT));
 
+        LocalDate startDate = null;
+        if (!startDate.isBlank()) {
+            startDate = LocalDate.parse(startDate, DATE_FMT);
+
+            System.out.println("Enter the time this formate (HH:mm:ss)");
+            time = LocalTime.parse(scanner.nextLine(), TIME_FMT);
+            System.out.println("Enter the description ");
+            description = scanner.nextLine();
+            System.out.println("enter the vendor name");
+            vendor = scanner.nextLine();
+
+        }
     }
 
     /* ------------------------------------------------------------------
