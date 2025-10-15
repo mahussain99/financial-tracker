@@ -79,34 +79,41 @@ public class FinancialTracker {
         //       and add it to the transactions list.
 
 
+        //lates date to come to buttom and oldest to
+
         try {
-            //lates date to come to buttom and oldest to
+            File newFile = new File(FILE_NAME);
+            if (!newFile.exists()) {
+                newFile.createNewFile();
 
-            BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME));
+                BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME));
 
-            String line;
-            while ((line = reader.readLine()) != null) {
 
-                String[] newTransaction = line.split("\\|");
+                String line;
+                while ((line = reader.readLine()) != null) {
 
-                LocalDate date = LocalDate.parse(newTransaction[0],DATE_FMT);
-                LocalTime time = LocalTime.parse(newTransaction[1],TIME_FMT);
-                String description = newTransaction[2];
-                String vendor = newTransaction[3];
-                double amount = Double.parseDouble(newTransaction[4]);
+                    String[] newTransaction = line.split("\\|");
 
-                transactions.add(new Transaction(date, time, description, vendor, amount));
+                    LocalDate date = LocalDate.parse(newTransaction[0], DATE_FMT);
+                    LocalTime time = LocalTime.parse(newTransaction[1], TIME_FMT);
+                    String description = newTransaction[2];
+                    String vendor = newTransaction[3];
+                    double amount = Double.parseDouble(newTransaction[4]);
+
+                    transactions.add(new Transaction(date, time, description, vendor, amount));
+
+                }
+
+                reader.close();
 
             }
-
-            reader.close();
         } catch (IOException e) {
-
-
+            System.out.println("show me run time error");
         }
 
 
     }
+
 
     /* ------------------------------------------------------------------
        Add new transactions
