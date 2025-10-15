@@ -57,8 +57,8 @@ List resources such as tutorials, articles, or documentation that helped you dur
 
 ## Team Members
 
-- **Name 1** - Nauman Saqib
-- **Name 2** - Arsenii Kunilovskii
+- **Name 1** - Mohammad Hussain
+- **Name 2** 
 
 ## Thanks
 

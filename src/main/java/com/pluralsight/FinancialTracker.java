@@ -6,7 +6,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Scanner;
 
 /*
@@ -36,7 +35,7 @@ public class FinancialTracker {
     /* ------------------------------------------------------------------
        Main menu
        ------------------------------------------------------------------ */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         loadTransactions(FILE_NAME);
 
         Scanner scanner = new Scanner(System.in);
@@ -80,29 +79,32 @@ public class FinancialTracker {
         //       and add it to the transactions list.
 
 
-        BufferedReader reader = null;
-        try{
-            reader = new BufferedReader(new FileReader(FILE_NAME));
+        try {
+            //lates date to come to buttom and oldest to
+
+            BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME));
 
             String line;
             while ((line = reader.readLine()) != null) {
 
-                String[] newtransaction = line.split("\\|");
+                String[] newTransaction = line.split("\\|");
 
-                LocalDate date = LocalDate.parse(newtransaction[0]);
-                LocalTime time = LocalTime.parse(newtransaction[1]);
-                String description = newtransaction[2];
-                String vendor = newtransaction[3];
-                double amount = Double.parseDouble(newtransaction[4]);
+                LocalDate date = LocalDate.parse(newTransaction[0],DATE_FMT);
+                LocalTime time = LocalTime.parse(newTransaction[1],TIME_FMT);
+                String description = newTransaction[2];
+                String vendor = newTransaction[3];
+                double amount = Double.parseDouble(newTransaction[4]);
 
                 transactions.add(new Transaction(date, time, description, vendor, amount));
 
             }
+
             reader.close();
         } catch (IOException e) {
 
 
         }
+
 
     }
 
@@ -136,7 +138,6 @@ public class FinancialTracker {
             vendor = scanner.nextLine();
 
 
-
         } catch (DateTimeException e) {
             System.out.println("Show me error");
         }
@@ -155,7 +156,7 @@ public class FinancialTracker {
             String line = "";
 
             transactions.add(new Transaction(date, time, description, vendor, amount));
-            writer.write(date+ "|" + time+ "|" + description+ "|" +vendor + "|"+ amount);
+            writer.write(date + "|" + time + "|" + description + "|" + vendor + "|" + amount);
 
             writer.newLine();
             writer.close();
@@ -163,12 +164,11 @@ public class FinancialTracker {
             System.out.println("Run time error");
 
 
-
         }
-        }
+    }
 
 
-        // TODO
+    // TODO
 
 
     /**
@@ -215,7 +215,7 @@ public class FinancialTracker {
             String line = "";
 
             transactions.add(new Transaction(date, time, description, vendor, amount));
-            writer.write(date+ "|" + time+ "|" + description+ "|" +vendor + "|"+ amount);
+            writer.write(date + "|" + time + "|" + description + "|" + vendor + "|" + amount);
 
             writer.newLine();
             writer.close();
@@ -257,22 +257,30 @@ public class FinancialTracker {
        Display helpers: show data in neat columns
        ------------------------------------------------------------------ */
     private static void displayLedger() { /* TODO – print all transactions in column format */
-        System.out.printf("all transactions\n");
-        System.out.printf("date        | time     | description        | vendor       | amount\n");
-        System.out.printf("--------------------------------------------------------------------\n");
+        try {
+            System.out.printf("all transactions\n");
+            System.out.printf("date        | time     | description        | vendor       | amount\n");
+            System.out.printf("--------------------------------------------------------------------\n");
 
-        for (Transaction transaction : transactions) {
-            System.out.println(transaction);
-
+            for (Transaction transaction : transactions) {
+                System.out.println(transaction);
+            }
+        } catch (Exception ex) {
+            System.out.println("show me error");
         }
     }
 
     private static void displayDeposits() { /* TODO – only amount > 0    */
+        try {
 
-        for (Transaction transaction : transactions) {
-            if (transaction.getAmount() > 0){
-                System.out.println(transaction);
+            for (Transaction transaction : transactions) {
+                if (transaction.getAmount() > 0) {
+                    System.out.println(transaction);
+                }
             }
+        } catch (Exception e) {
+
+            System.out.println("run tim error");
         }
     }
 
@@ -322,22 +330,23 @@ public class FinancialTracker {
                 }
                 case "3" -> {/* TODO – year-to-date report   */
                     LocalDate today = LocalDate.now();
-                    LocalDate thisYear = today.withDayOfYear(1);
-                    LocalDate endYear = today;
-                    filterTransactionsByDate(thisYear, endYear);
-                    System.out.println("Showing transactions from " + thisYear + " to " + endYear);
+                    LocalDate start = today.withDayOfYear(1);
+                    LocalDate end = today;
+                    filterTransactionsByDate(start, end);
+                    System.out.println("Showing transactions from " + start + " to " + end);
 
                 }
 
                 case "4" -> {/* TODO – previous year report  */
                     LocalDate today = LocalDate.now();
                     LocalDate previousYear = today.minusYears(1);
-                    LocalDate previousStartYear = previousYear.withDayOfYear(1);
-                    LocalDate previousEndYear = previousYear.withDayOfYear(previousYear.lengthOfYear());
-                    filterTransactionsByDate(previousStartYear, previousEndYear);
+                    LocalDate start = previousYear.withDayOfYear(1);
+                    LocalDate end = previousYear.withDayOfYear(previousYear.lengthOfYear());
+                    filterTransactionsByDate(start, end);
 
                 }
                 case "5" -> {/* TODO – prompt for vendor then report */
+                    System.out.println("Vendor name");
                     String vendor = scanner.nextLine().trim();
                     filterTransactionsByVendor(vendor);
                 }
@@ -363,20 +372,21 @@ public class FinancialTracker {
         }
 
     }
+
     private static void filterTransactionsByVendor(String vendor) {
         // TODO – iterate transactions, print those with matching vendor
 
         boolean found = false;
         for (Transaction allVendor : transactions) {
             if (allVendor.getVendor().equalsIgnoreCase(vendor)) {
-                System.out.println(allVendor.getVendor());
+                System.out.println(allVendor);
                 found = true;
-                if (found) {
-                    System.out.println("No transactions found for vendor: " + vendor);
-
-                }
 
             }
+
+        }
+        if (!found) {
+            System.out.println("No transactions found for vendor: " + vendor);
 
         }
     }
@@ -393,7 +403,6 @@ public class FinancialTracker {
             } else {
                 System.out.println("Start date is required.");
 
-
                 System.out.println("Enter end date (yyyy-MM-dd)");
                 String endInput = scanner.nextLine();
 
@@ -402,7 +411,6 @@ public class FinancialTracker {
                     endDate = LocalDate.parse(endInput, DATE_FMT);
                 } else {
                     System.out.println("End date is required.");
-
 
                     System.out.println("Enter description of the item");
                     String descriptionInput = scanner.nextLine();
@@ -414,7 +422,7 @@ public class FinancialTracker {
                     Double amount = null;
                     if (!amountInput.isBlank()) {
                         amount = Double.parseDouble(amountInput);
-                    }else {
+                    } else {
                         System.out.println("Amount was invalid");
 
 
@@ -424,7 +432,8 @@ public class FinancialTracker {
         } catch (Exception ex) {
             System.out.println("Show me runtime error");
         }
-        }
+    }
+
     /* ------------------------------------------------------------------
        Utility parsers (you can reuse in many places)
        ------------------------------------------------------------------ */
