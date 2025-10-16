@@ -50,7 +50,7 @@ Follow these steps to get your application running within IntelliJ IDEA:
 
 Include screenshots or GIFs that show your application in action. Use tools like [Giphy Capture](https://giphy.com/apps/giphycapture) to record a GIF of your application.
 
-![Application Screenshot](path/to/your/screenshot.png)
+![Application Screenshot](C:\Users\Family\Desktop\Pluralsight\Java_Development\Capston_Project\output)
 
 ## Future Work
 
@@ -74,4 +74,4 @@ Express gratitude towards those who provided help, guidance, or resources:
 
 - Thank you to [Mentor's Name] for continuous support and guidance.
 - A special thanks to all teammates for their dedication and teamwork.
-- Nauman Saqib, Arsenni Kunilovski, Shaherr and Natnel Twolde
+- Nauman Saqib, Arsenni Kunilovski, Shaher and Natnel Twolde
