@@ -2,7 +2,7 @@
 
 ## Description of the Project
 
-The Accounting Ledger is a Java-based console application that allows users to manage and track their financial transactions in a simple, organized format. Users can add deposits and payments, review a complete ledger of past transactions, and generate custom reports based on dates or vendors. Each transaction records the date, time, description, vendor, and amount, and is stored in a local file (transactions.csv) for long-term tracking. The application uses Java collections, file I/O, and date/time formatting to deliver a functional finance-tracking system that mimics the behavior of basic accounting software.
+The Accounting Ledger is a Java-based console application that allows users to manage and track their financial transactions in a simple, organized format. Users can add deposits and payments, review a complete ledger of past transactions, and generate custom reports based on dates or vendors. Each transaction is recorded with the date, time, description, vendor, and amount, and stored in a local file (transactions.csv) for long-term tracking.
 
 ## User Stories
 
@@ -18,8 +18,7 @@ List the user stories that guided the development of your application. Format th
 - As a user I want to click All and display all entries.
 - As a customer I want to display deposit entries into the account.
 - As a customer I want to display negative entries or payments into the account.
-- As a customer, I want to go to the Reports menu and show the customer run to the predefined report such as 
-Month To Date, Previous Month, Year To Date, Year To Date, and Search by Vendor.
+- As a customer, I want to go to the Reports menu and show the customer run to the predefined report such as Month To Date, Previous Month, Year To Date, Year To Date, and Search by Vendor.
 
 
 
@@ -65,16 +64,14 @@ Outline potential future enhancements or functionalities you might consider addi
 List resources such as tutorials, articles, or documentation that helped you during the project.
 
 - [Java Programming Tutorial]https://chatgpt.com/potato-sensei)
-- [Effective Java](https://www.example.com)
 
 ## Team Members
 
 - **Name 1** - Mohammad Hussain
-- **Name 2** 
 
 ## Thanks
-
 Express gratitude towards those who provided help, guidance, or resources:
 
 - Thank you to [Mentor's Name] for continuous support and guidance.
 - A special thanks to all teammates for their dedication and teamwork.
+- Nauman Saqib, Arsenni Kunilovski, Shaherr and Natnel Twolde
