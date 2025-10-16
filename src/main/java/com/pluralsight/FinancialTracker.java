@@ -85,7 +85,7 @@ public class FinancialTracker {
             }
             reader.close();
         } catch (IOException e) {
-            System.out.println("show me run time error");
+            System.out.println("Show me run time error");
         }
     }
 
@@ -104,7 +104,7 @@ public class FinancialTracker {
             time = LocalTime.parse(scanner.nextLine(), TIME_FMT);
             System.out.println("Enter the description ");
             description = scanner.nextLine();
-            System.out.println("enter the vendor name");
+            System.out.println("Enter the vendor name");
             vendor = scanner.nextLine();
 
 
@@ -118,7 +118,7 @@ public class FinancialTracker {
             scanner.nextLine();
 
             if (amount <= 0) {
-                System.out.println("amount should be positive");
+                System.out.println("Amount should be positive");
                 return;
             }
 
@@ -152,7 +152,7 @@ public class FinancialTracker {
             time = LocalTime.parse(scanner.nextLine(), TIME_FMT);
             System.out.println("Enter the description ");
             description = scanner.nextLine();
-            System.out.println("enter the vendor name");
+            System.out.println("Enter the vendor name");
             vendor = scanner.nextLine();
 
         } catch (DateTimeException e) {
@@ -165,7 +165,7 @@ public class FinancialTracker {
             scanner.nextLine();
 
             if (amount <= 0) {
-                System.out.println("amount should be positive");
+                System.out.println("Amount should be positive");
                 return;
             }
             amount = -amount;
@@ -221,7 +221,7 @@ public class FinancialTracker {
                 System.out.println(transaction);
             }
         } catch (Exception ex) {
-            System.out.println("show me error");
+            System.out.println("Show me error");
         }
     }
 
@@ -236,7 +236,7 @@ public class FinancialTracker {
                 }
             }
         } catch (Exception e) {
-            System.out.println("run tim error");
+            System.out.println("Run tim error");
         }
     }
 
@@ -362,7 +362,7 @@ public class FinancialTracker {
 
             System.out.println("Enter the anything about description ");
             String description = scanner.nextLine().toLowerCase();
-            System.out.println("enter the any vendor name");
+            System.out.println("Enter the any vendor name");
             String vendor = scanner.nextLine().toLowerCase();
 
             System.out.println("Enter any amount");

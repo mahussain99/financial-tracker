@@ -18,6 +18,7 @@ public class Transaction {
         this.vendor = vendor;
         this.amount = amount;
     }
+
     public LocalDate getDate() {
         return date;
     }
@@ -60,9 +61,15 @@ public class Transaction {
 
     @Override
     public String toString() {
+
+        String DATE_PATTERN = "yyyy-MM-dd";
+        String TIME_PATTERN = "HH:mm:ss";
+        DateTimeFormatter DATE_FMT = DateTimeFormatter.ofPattern(DATE_PATTERN);
+        DateTimeFormatter TIME_FMT = DateTimeFormatter.ofPattern(TIME_PATTERN);
+
         return String.format(
                 "%-16s| %-12s | %-34s | %-26s | $%,.2f",
-                date.format(DateTimeFormatter.ISO_LOCAL_DATE), time.format(DateTimeFormatter.ISO_LOCAL_TIME), description, vendor, amount);
+                date.format(DATE_FMT), time.format(TIME_FMT), description, vendor, amount);
     }
 }
 
