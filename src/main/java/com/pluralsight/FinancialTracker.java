@@ -87,9 +87,7 @@ public class FinancialTracker {
                 String description = newTransaction[2];
                 String vendor = newTransaction[3];
                 double amount = Double.parseDouble(newTransaction[4]);
-
                 transactions.add(new Transaction(date, time, description, vendor, amount));
-
             }
             reader.close();
         } catch (IOException e) {
@@ -148,7 +146,6 @@ public class FinancialTracker {
     }
 
     private static void addPayment(Scanner scanner) {
-        // TODO
 
         LocalDate date = null;
         LocalTime time = null;
@@ -243,7 +240,7 @@ public class FinancialTracker {
         }
     }
 
-    private static void displayDeposits() { /* TODO – only amount > 0    */
+    private static void displayDeposits() {
         try {
             System.out.format("%-16s| %-12s | %-34s | %-26s | %s\n", "Date", "Time", "Description", "Vendor", "Amount");
             System.out.println("-------------------------------------------------------------------------------------------------------\n");
@@ -254,12 +251,11 @@ public class FinancialTracker {
                 }
             }
         } catch (Exception e) {
-
             System.out.println("run tim error");
         }
     }
 
-    private static void displayPayments() { /* TODO – only amount < 0               */
+    private static void displayPayments() {
         System.out.format("%-16s| %-12s | %-34s | %-26s | %s\n", "Date", "Time", "Description", "Vendor", "Amount");
         System.out.println("-------------------------------------------------------------------------------------------------------\n");
 
@@ -338,10 +334,8 @@ public class FinancialTracker {
        Reporting helpers
        ------------------------------------------------------------------ */
     private static void filterTransactionsByDate(LocalDate start, LocalDate end) {
-        // TODO – iterate transactions, print those within the range
         System.out.format("%-16s| %-12s | %-34s | %-26s | %s\n", "Date", "Time", "Description", "Vendor", "Amount");
         System.out.println("-------------------------------------------------------------------------------------------------------\n");
-// I have to work here
 
         for (Transaction transaction : transactions) {
             if (!transaction.getDate().isBefore(start) && !transaction.getDate().isAfter(end)) {
@@ -355,7 +349,6 @@ public class FinancialTracker {
     }
 
     private static void filterTransactionsByVendor(String vendor) {
-        // TODO – iterate transactions, print those with matching vendor
         System.out.format("%-16s| %-12s | %-34s | %-26s | %s\n", "Date", "Time", "Description", "Vendor", "Amount");
         System.out.println("-------------------------------------------------------------------------------------------------------\n");
 
@@ -372,8 +365,7 @@ public class FinancialTracker {
     }
 
     private static void customSearch(Scanner scanner) {
-        // TODO – prompt for any combination of date range, description,
-        //        vendor, and exact amount, then display matches
+
         try {
             System.out.println("Enter the date any formate");
             String startDateInput = scanner.nextLine();
@@ -394,30 +386,26 @@ public class FinancialTracker {
 
             System.out.println("Enter any amount");
             String amountInput = scanner.nextLine();
-                    Double exactAmount = amountInput.isBlank() ? null : Double.parseDouble(amountInput);
+
+            Double exactAmount = null;
+                  if (!amountInput.isBlank())
+                      exactAmount=  Double.parseDouble(amountInput);
 
             for (Transaction allFilterTransaction : transactions) {
-                if (startDate != null && allFilterTransaction.getDate().isBefore(startDate)) {
+                if (startDate != null && allFilterTransaction.getDate().isBefore(startDate))
                     continue;
-                    if (endNewDate != null && allFilterTransaction.getDate().isBefore(endNewDate)) {
-                        continue;
-                        if (!description.isBlank() && !allFilterTransaction.getDescription().toLowerCase().contains(description.toLowerCase())) {
-                            continue;
-                            if (!vendor.isBlank() && !allFilterTransaction.getVendor().toLowerCase().contains(vendor.toLowerCase())) {
-                                continue;
-                                if (amountInput != null && allFilterTransaction.getAmount() != exactAmount) {
-                                    continue;
-                                    System.out.println(allFilterTransaction);
-                                }
-                            }
-                        }
-                    }
-                }
-
+                if (endNewDate != null && allFilterTransaction.getDate().isAfter(endNewDate))
+                    continue;
+                if (newTime != null && allFilterTransaction.getTime().isBefore(newTime))
+                    continue;
+                if (!description.isBlank() && !allFilterTransaction.getDescription().toLowerCase().contains(description.toLowerCase()))
+                    continue;
+                if (!vendor.isBlank() && !allFilterTransaction.getVendor().toLowerCase().contains(vendor.toLowerCase()))
+                    continue;
+                if (amountInput != null && allFilterTransaction.getAmount() != exactAmount)
+                    continue;
+                System.out.println(allFilterTransaction);
             }
-
-                System.out.println("Formate was invalid");
-
                     } catch(Exception ex){
                         System.out.println("Show me runtime error");
                     }
