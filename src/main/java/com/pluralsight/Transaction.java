@@ -2,6 +2,7 @@ package com.pluralsight;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class Transaction {
     private LocalDate date;
@@ -61,8 +62,7 @@ public class Transaction {
     public String toString() {
         return String.format(
                 "%-16s| %-12s | %-34s | %-26s | $%,.2f",
-                date, time, description, vendor, amount
-        );
+                date.format(DateTimeFormatter.ISO_LOCAL_DATE), time.format(DateTimeFormatter.ISO_LOCAL_TIME), description, vendor, amount);
     }
 }
 

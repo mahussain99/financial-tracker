@@ -135,7 +135,7 @@ public class FinancialTracker {
             String line = "";
 
             transactions.add(new Transaction(date, time, description, vendor, amount));
-            writer.write(date + "|" + time + "|" + description + "|" + vendor + "|" + amount);
+            writer.write(date.format(DATE_FMT) + "|" + time.format(TIME_FMT) + "|" + description + "|" + vendor + "|" + amount);
 
             writer.newLine();
             writer.close();
@@ -388,8 +388,8 @@ public class FinancialTracker {
             String amountInput = scanner.nextLine();
 
             Double exactAmount = null;
-                  if (!amountInput.isBlank())
-                      exactAmount=  Double.parseDouble(amountInput);
+            if (!amountInput.isBlank())
+                exactAmount = Double.parseDouble(amountInput);
 
             for (Transaction allFilterTransaction : transactions) {
                 if (startDate != null && allFilterTransaction.getDate().isBefore(startDate))
@@ -406,10 +406,10 @@ public class FinancialTracker {
                     continue;
                 System.out.println(allFilterTransaction);
             }
-                    } catch(Exception ex){
-                        System.out.println("Show me runtime error");
-                    }
-                }
+        } catch (Exception ex) {
+            System.out.println("Show me runtime error");
+        }
+    }
 
     /* ------------------------------------------------------------------
        Utility parsers (you can reuse in many places)
