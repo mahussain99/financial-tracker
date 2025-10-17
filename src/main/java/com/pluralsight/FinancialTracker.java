@@ -100,6 +100,7 @@ public class FinancialTracker {
         try {
             System.out.println("Enter the date this formate (yyyy-MM-dd)");
             date = LocalDate.parse(scanner.nextLine(), DATE_FMT);
+
             System.out.println("Enter the time this formate (HH:mm:ss)");
             time = LocalTime.parse(scanner.nextLine(), TIME_FMT);
             System.out.println("Enter the description ");

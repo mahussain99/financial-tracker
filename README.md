@@ -2,22 +2,21 @@
 
 ## Description of the Project
 
-The Accounting Ledger is a Java-based console application that allows users to manage and track their financial transactions in a simple, organized format. Users can add deposits and payments, review a complete ledger of past transactions, and generate custom reports based on dates or vendors. Each transaction is recorded with the date, time, description, vendor, and amount, and stored in a local file (transactions.csv) for long-term tracking.
-
+The Financial Tracker is an application for managing personal finances efficiently. It enables users to record deposits and payments, view a detailed transaction ledger, and generate reports filtered by date or vendor. Each transaction logs the date, time, description, vendor, and amount, all securely stored in a local transactions.csv file for easy access and long-term tracking.
 ## User Stories
 
 List the user stories that guided the development of your application. Format these stories as: "As a [type of user], I want [some goal] so that [some reason]."
 
 - As a user, I want to be able to input my data, so that the application can process it accordingly.
 - As a user, I want to receive immediate feedback, so I can understand what to do next.
-- As a customer i want to go to the home screen and show me on this display (Add deposit, make payment, Ledger and Exit options.
-- As a customer I want to go to the add deposit menu and be able to make amount deposit.
-- As a customer I want to go to the make payment menu and be able to make a payment.
+- As a customer, I want to go to the home screen and show me on this display (Add deposit, make payment, Ledger and Exit options.
+- As a customer, I want to go to the add deposit menu and be able to make amount deposit.
+- As a customer, I want to go to the make payment menu and be able to make a payment.
 - As a customer, I want to exit the menu and exit my application.
-- As a customer I want to go to the Ledger menu and display all entries such as All, Deposit, Payments and Report Menu.
-- As a user I want to click All and display all entries.
-- As a customer I want to display deposit entries into the account.
-- As a customer I want to display negative entries or payments into the account.
+- As a customer, I want to go to the Ledger menu and display all entries such as All, Deposit, Payments and Report Menu.
+- As a user, I want to click All and display all entries.
+- As a customer, I want to display deposit entries into the account.
+- As a customer, I want to display negative entries or payments into the account.
 - As a customer, I want to go to the Reports menu and show the customer run to the predefined report such as Month To Date, Previous Month, Year To Date, Year To Date, and Search by Vendor.
 
 
@@ -43,35 +42,36 @@ Follow these steps to get your application running within IntelliJ IDEA:
 
 ## Technologies Used
 
-- Java: Mention the version you are using.
-- Any additional libraries or frameworks used in the project.
+- Java: Java: openjdk 17.0.12 2024-07-16.
+- Tools: IntelliJ IDEA
 
-## Demo
+## List of Screenshot
 
-Include screenshots or GIFs that show your application in action. Use tools like [Giphy Capture](https://giphy.com/apps/giphycapture) to record a GIF of your application.
 
-![Application Screenshot](C:\Users\Family\Desktop\Pluralsight\Java_Development\Capston_Project\output)
+- [All Menu.png](../output/All%20Menu.png)
+- [Make a deposit.png](../output/Make%20a%20deposit.png)
+- [Deposit transactions.png](../output/Deposit%20transactions.png)
+- [Make a Payment.png](../output/Make%20a%20Payment.png)
+- [Payment Transaction.png](../output/Payment%20Transaction.png)
 
 ## Future Work
 
-Outline potential future enhancements or functionalities you might consider adding:
-
-- Additional feature to be developed.
-- Improvement of current functionalities.
+- Transaction Area: User can allow any transaction, such as food, rent, travel and etc
+- Deposit Area: As customer allow any amount deposit in the account
+- Payment Area: As a user can make a payment at their price
+- Total amount: As a customer can see their total amount on the screen depend on the transactions 
 
 ## Resources
+- Potato-sensei: https://chatgpt.com/g/g-681d378b0c90819197b16e49abe384ec-potato-sensei
+- https://github.com/RayMaroun/students-extra-resources/blob/main/java-guided-project.md#-student-grade-management-system
 
-List resources such as tutorials, articles, or documentation that helped you during the project.
 
-- [Java Programming Tutorial]https://chatgpt.com/potato-sensei)
 
 ## Team Members
 
-- **Name 1** - Mohammad Hussain
-
+- Name: Mohammad Hussain
 ## Thanks
-Express gratitude towards those who provided help, guidance, or resources:
 
-- Thank you to [Mentor's Name] for continuous support and guidance.
-- A special thanks to all teammates for their dedication and teamwork.
-- Nauman Saqib, Arsenni Kunilovski, Shaher and Natnel Twolde
+- Thank you for continuous support and guidance.
+- Nauman Saqib, Arsenni Kunilovski, Shaheer Kayani, and Natnel Twolde
+- Especially thanks to Raymond for supporting me from time to time 
